@@ -6,29 +6,29 @@ output.appendChild(loadingRow);
 
 const startTime = performance.now();
 
-function createRandomPromise(index){
-	const delay = Math.random() * 2000 + 1000;
-	return new Promise(resolve => {
-		setTimeout(()=>{
-			cosnt elapsed = (performance.now() - startTime)/1000;
-			resolve({name: `Promise ${index}`, time: parseFloat(elapsed.toFixed(3)) });
-		}, delay);
-	});
+function createRandomPromise(index) {
+  const delay = Math.random() * 2000 + 1000;
+  return new Promise(resolve => {
+    setTimeout(() => {
+      const timeTaken = (performance.now() - startTime) / 1000;
+      resolve({ name: `Promise ${index}`, time: parseFloat(timeTaken.toFixed(3)) });
+    }, delay);
+  });
 }
 
-const promises = [1,2,3].map(i=>createRandomPromise(i));
+const promises = [1, 2, 3].map(i => createRandomPromise(i));
 
-Promise.all(promises).then(results =>{
-	output.innerHTML= "";
+Promise.all(promises).then(results => {
+  output.innerHTML = ""; // Remove loading row
 
-	results.forEach(result =>{
-		const row=document.createElement("tr");
-		row.innerHTML = `
+  results.forEach(result => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
       <td>${result.name}</td>
       <td>${result.time}</td>
-      `;
-		output.appendChild(row);
-	});
+    `;
+    output.appendChild(row);
+  });
 	const maxTime = Math.max(...results.map(r=>r.time)).toFixed(3);
 	const totalRow = document.createElement("tr");
   totalRow.innerHTML = `
