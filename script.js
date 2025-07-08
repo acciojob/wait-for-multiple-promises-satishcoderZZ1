@@ -1,8 +1,12 @@
 //your JS code here. If required.
 const output = document.getElementById("output");
-const loadingRow = document.createElement("tr");
-loadingRow.innerHTML = `<td colspan="2">Loading....</td>`;
-output.appendChild(loadingRow);
+
+// Add loading row
+output.innerHTML = `
+  <tr id="loading">
+    <td colspan="2">Loading...</td>
+  </tr>
+`;
 
 const startTime = performance.now();
 
